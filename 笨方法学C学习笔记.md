@@ -160,9 +160,9 @@ type *ptr
   - ***单行定义，例：***
 
   ```c
-  #define A(x) ##x
-  #define B(x) #<a href='http://www.jobbole.com/members/chenj0726'>@x</a>
-  #define C(x) #x
+  #define A(x) T_##x	// A(1) -> T_1
+  #define B(x) #@x	// B(1)	-> '1'
+  #define C(x) #x		// C(1)	-> "1"
   ```
 
 - ***多行定义，例：***
