@@ -340,6 +340,8 @@ clean:
   - 接下来它使用`Object *el`指针，通过`*el = proto`来设置这块内存的内容。要记住你可以复制结构体，而且`*el`的意思是“`el`所指向对象的值”，所以整条语句意思是“将`el`所指向对象的值赋给`proto`”。
   - 由于这个谜之结构体被填充为来自`proto`的正确数据，这个函数接下来可以在`Object`上调用`init`，或者`destroy`。但是最神奇的一部分是无论谁调用这个函数都可以将它们改为想要的东西。
 
+> ex19,我自己的理解：NEW(xxx结构体, "说明")被展开为Object_new(sizeof(xxx结构体), xxxProto proto, "说明")。初始化xxxProto，给xxxProto设置object.c中的默认实现。然后分配了一块xxx结构体大小的内存，因为xxx结构体的第一个字段是Object proto, 而xxxProto本质上就是一个Object结构体， 所以可以把xxx结构体当成xxxProto来使用。*el = proto，将el的所指向的对象的值赋给proto，我的理解是告诉Object *el对应的结构体实现（可以把Object理解为一个interface，但是这个interface已经有了默认的实现，而各个xxxProto就是对它不同的实现。）。然后el调用的方法就是xxxProto所重新实现的方法，如果没有重新实现则调用object.c中的默认实现。
+
 ***
 
 ### ex20
