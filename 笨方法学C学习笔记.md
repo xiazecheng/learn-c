@@ -346,3 +346,15 @@ clean:
 
 ### ex20
 
+> \##\_\_VA_ARGS\_\_
+
+```c
+#define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+```
+
+- \_\_VA_ARGS\_\_  总体来说就是将左边宏中 ... 的内容原样抄写在右边 \_\_VA_ARGS\_\_ 所在的位置
+- 当左边宏中的 ... 可变参数为空时会多一个“,”，编译器会报错，“##”的作用就是让编译器忽略\_\_VA_ARGS\_\_前面的逗号。
+
+> Makefile 中宏定义
+
+- CFLAGS=-Dxxx（-D后面紧跟宏定义，不能有空格）
